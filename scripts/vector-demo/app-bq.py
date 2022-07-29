@@ -10,6 +10,7 @@ print(gcp_project)
 
 bigquery_client = bq.Client()
 
+#
 # Following function works for lines and points
 def get_geodataframe(table,columns):
     sql_query = f"""
