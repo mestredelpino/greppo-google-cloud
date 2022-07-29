@@ -5,8 +5,6 @@ import os
 gcp_project      = os.environ["PROJECT"]
 dataset          = os.environ["DATASET"]
 
-# dataset = "greppo_vector_demo"
-
 bigquery_client = bq.Client()
 
 # Following function works for lines and points
@@ -20,7 +18,7 @@ def get_geodataframe(table,columns):
 
 
 cities_df = get_geodataframe(f"{gcp_project}.{dataset}.cities","COUNTRY,NAME")
-roads_df = get_geodataframe(f"{gcp_project}.{dataset}.roads","COUNTRY,NAME")
+roads_df = get_geodataframe(f"{gcp_project}.{dataset}.roads","COUNTRY,name")
 regions_df = get_geodataframe(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code")
 
 
@@ -75,7 +73,7 @@ app.display(name='text-1', value=text_1)
 app.display(name='text-2',
             value='The following displays the count of polygons, lines and points as a barchart.')
 
-# app.bar_chart(name='Geometry count', description='A bar-cart showing the count of each geometry-type in the datasets.',
-#               x=['polygons', 'lines', 'points'], y=[len(regions_df), len(roads_df), len(cities_df)], color='#984ea3')
+app.bar_chart(name='Geometry count', description='A bar-cart showing the count of each geometry-type in the datasets.',
+              x=['polygons', 'lines', 'points'], y=[len(regions_df), len(roads_df), len(cities_df)], color='#984ea3')
 
 
