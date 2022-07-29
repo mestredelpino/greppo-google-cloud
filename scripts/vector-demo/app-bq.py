@@ -5,6 +5,9 @@ import os
 gcp_project      = os.environ["PROJECT"]
 dataset          = os.environ["DATASET"]
 
+print(dataset)
+print(gcp_project)
+
 bigquery_client = bq.Client()
 
 # Following function works for lines and points
@@ -21,6 +24,7 @@ cities_df = get_geodataframe(f"{gcp_project}.{dataset}.cities","COUNTRY,NAME")
 # roads_df = get_geodataframe(f"{gcp_project}.{dataset}.roads","COUNTRY,name")
 # regions_df = get_geodataframe(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code")
 
+print(cities_df)
 
 app.display(name='title', value='Vector demo')
 app.display(name='description',
