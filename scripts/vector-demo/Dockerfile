@@ -2,7 +2,7 @@
 
 FROM python:3.9-slim-buster
 
-COPY /scripts/vector-demo/ /vector-demo/
+COPY . /vector-demo/
 
 WORKDIR /vector-demo
 
