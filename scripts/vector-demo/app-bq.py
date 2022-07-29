@@ -1,5 +1,5 @@
 from greppo import app
-from google.cloud import bigquery as bq
+import google.cloud.bigquery as bq
 import os
 
 gcp_project      = os.environ["PROJECT"]
