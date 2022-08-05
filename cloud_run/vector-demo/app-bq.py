@@ -20,10 +20,36 @@ def get_geodataframe(table,columns):
     geodataframe = bigquery_client.query(sql_query).to_geodataframe()
     return geodataframe
 
+def choose_feature(table,columns,feature_name):
+    sql_query = f"""
+        SELECT ST_GeogFrom(geometry) as geometry, {columns} WHERE reg_name={feature_name}
+        FROM {table}
+    """
+    geodataframe = bigquery_client.query(sql_query).to_geodataframe()
+    return geodataframe
+
+
+city_choice = []
+
+# Choose city
+for i in cities_df["NAME"]:
+    city_choice.append(i)
+
+chosen_city = app.select(name="Choose city", options=[city_choice], default=city_choice[0])
+
+# Choose region
+region_choice = []
+
+for i in regions_df["NAME"]:
+    region_choice.append(i)
+
+chosen_region = app.select(name="Choose region", options=[region_choice], default=region_choice[0])
+
+
+
 cities_df = get_geodataframe(f"{gcp_project}.{dataset}.cities","COUNTRY,NAME")
 roads_df = get_geodataframe(f"{gcp_project}.{dataset}.roads","COUNTRY,name")
-regions_df = get_geodataframe(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code")
-
+regions_df = choose_feature(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code",chosen_region)
 
 
 
@@ -81,10 +107,3 @@ app.display(name='text-2',
 app.bar_chart(name='Geometry count', description='A bar-cart showing the count of each geometry-type in the datasets.',
               x=['polygons', 'lines', 'points'], y=[len(regions_df), len(roads_df), len(cities_df)], color='#984ea3')
 
-
-city_choice = []
-
-for i in cities_df["NAME"]:
-    city_choice.append(i)
-
-select1 = app.select(name="First selector", options=[city_choice], default=city_choice[0])
