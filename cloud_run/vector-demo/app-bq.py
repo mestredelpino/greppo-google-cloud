@@ -28,6 +28,10 @@ def choose_feature(table,columns,feature_name):
     geodataframe = bigquery_client.query(sql_query).to_geodataframe()
     return geodataframe
 
+cities_df = get_geodataframe(f"{gcp_project}.{dataset}.cities","COUNTRY,NAME")
+roads_df = get_geodataframe(f"{gcp_project}.{dataset}.roads","COUNTRY,name")
+regions_df = get_geodataframe(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code")
+
 
 city_choice = []
 
@@ -46,10 +50,8 @@ for i in regions_df["reg_name"]:
 chosen_region = app.select(name="Choose region", options=[region_choice], default=region_choice[0])
 
 
+region_subset = choose_feature(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code","reg_name")
 
-cities_df = get_geodataframe(f"{gcp_project}.{dataset}.cities","COUNTRY,NAME")
-roads_df = get_geodataframe(f"{gcp_project}.{dataset}.roads","COUNTRY,name")
-regions_df = choose_feature(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code",chosen_region)
 
 
 
@@ -71,7 +73,7 @@ app.base_layer(
 
 
 app.vector_layer(
-    data=regions_df,
+    data=region_subset,
     name="Regions of Italy",
     description="Polygons showing the boundaries of regions of Italy.",
     style={"fillColor": "#4daf4a"},
