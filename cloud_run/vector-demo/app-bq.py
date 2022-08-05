@@ -5,11 +5,12 @@ import os
 gcp_project      = os.environ["PROJECT"]
 dataset          = os.environ["DATASET"]
 
+print(dataset)
+print(gcp_project)
+
 bigquery_client = bq.Client()
 
-
-
-
+#
 # Following function works for lines and points
 def get_geodataframe(table,columns):
     sql_query = f"""
@@ -26,6 +27,7 @@ def choose_feature(table,columns,feature_name):
     geodataframe = bigquery_client.query(sql_query).to_geodataframe()
     return geodataframe
 
+
 def point_in_polygon(columns, points_table_id,polygons_table_id,polygons_key,polygons_value):
     sql_query = f"""
         SELECT {columns} FROM {points_table_id} as points 
@@ -40,6 +42,7 @@ def point_in_polygon(columns, points_table_id,polygons_table_id,polygons_key,pol
 cities_df = get_geodataframe(f"{gcp_project}.{dataset}.cities","COUNTRY,NAME")
 roads_df = get_geodataframe(f"{gcp_project}.{dataset}.roads","COUNTRY,name")
 regions_df = get_geodataframe(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code")
+
 
 
 
@@ -61,6 +64,7 @@ app.base_layer(
 
 
 
+
 app.vector_layer(
     data=roads_df,
     name="Highways in Italy",
@@ -76,7 +80,7 @@ app.vector_layer(
     visible=True,
 )
 
-# city_choice = []
+city_choice = []
 
 # Choose city
 # for i in cities_df["NAME"]:
@@ -91,10 +95,7 @@ for i in regions_df["reg_name"]:
     region_choice.append(i)
 
 chosen_region = app.select(name="Choose region", options=region_choice, default=region_choice[0])
-
 regions_display = choose_feature(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code",'{chosen_region}')
-
-# cities_in_region = point_in_polygon("*", "carlos-lab.greppo_vector_demo-cities","carlos-lab.greppo_vector_demo-regions","reg_name",'{chosen_region}')
 
 app.display(name='You chose:', value=regions_display["reg_name"])
 
@@ -120,6 +121,4 @@ app.display(name='text-2',
 
 app.bar_chart(name='Geometry count', description='A bar-cart showing the count of each geometry-type in the datasets.',
               x=['polygons', 'lines', 'points'], y=[len(regions_df), len(roads_df), len(cities_df)], color='#984ea3')
-
-
 
