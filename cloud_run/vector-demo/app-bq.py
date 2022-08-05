@@ -84,15 +84,13 @@ app.bar_chart(name='Geometry count', description='A bar-cart showing the count o
               x=['polygons', 'lines', 'points'], y=[len(regions_df), len(roads_df), len(cities_df)], color='#984ea3')
 
 
-select1 = app.select(name="First selector", options=["a", "b", "c"], default="a")
-
 city_choice = []
 
 # Choose city
-for i in cities_df["NAME"]:
-    city_choice.append(i)
+# for i in cities_df["NAME"]:
+#     city_choice.append(i)
 
-chosen_city = app.select(name="Choose city", options=city_choice, default=city_choice[0])
+# chosen_city = app.select(name="Choose city", options=city_choice, default=city_choice[0])
 
 # Choose region
 region_choice = []
@@ -108,6 +106,7 @@ chosen_region = app.select(name="Choose region", options=region_choice, default=
 
 regions_display = choose_feature(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code",chosen_region)
 
+app.display(name='You chose:', value=regions_display)
 
 
 app.vector_layer(
