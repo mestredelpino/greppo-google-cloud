@@ -100,7 +100,7 @@ chosen_region = app.select(name="Choose region", options=region_choice, default=
 
 regions_display = choose_feature(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code",chosen_region)
 
-# cities_in_region = point_in_polygon("*", "carlos-lab.greppo_vector_demo-cities","carlos-lab.greppo_vector_demo-regions","reg_name",'{chosen_region}')
+cities_in_region = point_in_polygon("*", "carlos-lab.greppo_vector_demo-cities","carlos-lab.greppo_vector_demo-regions","reg_name",'{chosen_region}')
 
 app.display(name='You chose:', value=regions_display["reg_name"])
 
@@ -117,6 +117,6 @@ app.display(name='text-2',
             value='The following displays the count of polygons, lines and points as a barchart.')
 
 app.bar_chart(name='Geometry count', description='A bar-cart showing the count of each geometry-type in the datasets.',
-              x=['polygons', 'lines', 'points'], y=[len(regions_df), len(roads_df), len(cities_df)], color='#984ea3')
+              x=['Cities in region'], y=[len(cities_in_region)], color='#984ea3')
 
 
