@@ -102,7 +102,7 @@ regions_display = choose_feature(f"{gcp_project}.{dataset}.regions","reg_name,re
 
 # cities_in_region = point_in_polygon("*", "carlos-lab.greppo_vector_demo-cities","carlos-lab.greppo_vector_demo-regions","reg_name",'{chosen_region}')
 
-# app.display(name='You chose:', value=regions_display["reg_name"])
+app.display(name='You chose:', value=regions_display["reg_name"])
 
 
 app.vector_layer(
