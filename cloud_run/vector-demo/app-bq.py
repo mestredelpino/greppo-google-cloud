@@ -47,8 +47,6 @@ The dashboard shows the boundaries of the regions of Italy as polygons, the
 major arterial higways as lines and the major cities of each region as points.
 """
 
-
-
 app.display(name='title', value='Vector demo')
 app.display(name='description',
             value='A Greppo demo app for vector data using GeoJSON data.')
@@ -93,14 +91,14 @@ app.vector_layer(
 # Choose region
 
 
-# region_choice = []
+region_choice = []
 
-# for i in regions_df["reg_name"]:
-#     region_choice.append(i)
+for i in regions_df["reg_name"]:
+    region_choice.append(i)
 
-# chosen_region = app.select(name="Choose region", options=region_choice, default=region_choice[0])
+chosen_region = app.select(name="Choose region", options=region_choice, default=region_choice[0])
 
-# regions_display = choose_feature(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code",'{chosen_region}')
+regions_display = choose_feature(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code",'{chosen_region}')
 
 # cities_in_region = point_in_polygon("*", "carlos-lab.greppo_vector_demo-cities","carlos-lab.greppo_vector_demo-regions","reg_name",'{chosen_region}')
 
