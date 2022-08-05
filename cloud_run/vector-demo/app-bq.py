@@ -5,14 +5,11 @@ import os
 gcp_project      = os.environ["PROJECT"]
 dataset          = os.environ["DATASET"]
 
-print(dataset)
-print(gcp_project)
-
 bigquery_client = bq.Client()
 
 
 
-#
+
 # Following function works for lines and points
 def get_geodataframe(table,columns):
     sql_query = f"""
@@ -79,7 +76,7 @@ app.vector_layer(
     visible=True,
 )
 
-city_choice = []
+# city_choice = []
 
 # Choose city
 # for i in cities_df["NAME"]:
