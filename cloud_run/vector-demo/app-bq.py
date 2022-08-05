@@ -50,9 +50,7 @@ for i in regions_df["reg_name"]:
 chosen_region = app.select(name="Choose region", options=[region_choice], default=region_choice[0])
 
 
-region_subset = choose_feature(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code",chosen_region)
-
-
+# region_subset = choose_feature(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code",chosen_region)
 
 
 app.display(name='title', value='Vector demo')
@@ -73,7 +71,7 @@ app.base_layer(
 
 
 app.vector_layer(
-    data=region_subset,
+    data=regions_df,
     name="Regions of Italy",
     description="Polygons showing the boundaries of regions of Italy.",
     style={"fillColor": "#4daf4a"},
