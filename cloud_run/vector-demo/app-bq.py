@@ -83,5 +83,5 @@ app.bar_chart(name='Geometry count', description='A bar-cart showing the count o
 
 
 app.select(
-    name="select", options=[regions_df, roads_df, cities_df], default=[regions_df]
+    name="select", options=["Regions", "Roads", 'Cities'], default=["Cities"]
 )
