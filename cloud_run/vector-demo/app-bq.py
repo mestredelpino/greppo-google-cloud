@@ -103,6 +103,8 @@ for i in regions_df["reg_name"]:
 chosen_region = app.select(name="Choose region", options=region_choice, default=region_choice[0])
 
 
+chosen_region2 = app.select(name="Choose region", options=[region_choice], default=region_choice[0])
+
 
 regions_display = choose_feature(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code",chosen_region)
 
