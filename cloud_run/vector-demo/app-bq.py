@@ -82,6 +82,11 @@ app.bar_chart(name='Geometry count', description='A bar-cart showing the count o
               x=['polygons', 'lines', 'points'], y=[len(regions_df), len(roads_df), len(cities_df)], color='#984ea3')
 
 
+select1 = app.select(name="First selector", options=["a", "b", "c"], default="a")
+
+
+app.select(name="First selector", options=["a", "b", "c"], default="a")
+
 city_choice = []
 
 # Choose city
@@ -97,3 +102,12 @@ for i in regions_df["reg_name"]:
     region_choice.append(i)
 
 chosen_region = app.select(name="Choose region", options=[region_choice], default=region_choice[0])
+
+
+# def choose_feature(table,columns,feature_name):
+#     sql_query = f"""
+#         SELECT ST_GeogFrom(geometry) as geometry, {columns} WHERE reg_name={feature_name}
+#         FROM {table}
+#     """
+#     geodataframe = bigquery_client.query(sql_query).to_geodataframe()
+#     return geodataframe
