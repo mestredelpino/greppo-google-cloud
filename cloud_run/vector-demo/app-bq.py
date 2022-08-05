@@ -24,7 +24,8 @@ cities_df = get_geodataframe(f"{gcp_project}.{dataset}.cities","COUNTRY,NAME")
 roads_df = get_geodataframe(f"{gcp_project}.{dataset}.roads","COUNTRY,name")
 regions_df = get_geodataframe(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code")
 
-print(cities_df)
+
+
 
 app.display(name='title', value='Vector demo')
 app.display(name='description',

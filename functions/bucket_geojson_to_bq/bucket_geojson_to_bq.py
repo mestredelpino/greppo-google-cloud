@@ -16,9 +16,8 @@ def bucket_geojson_to_bq(request):
        <https://flask.palletsprojects.com/en/1.1.x/api/#flask.make_response>.
    """
    request_json = request.get_json(silent=True)
-   request_args = request.args
-              
-   bigquery_client = bq.Client()
+   request_args = request.args    
+   bigquery_client = bq.Client()                                                                           # Define a Bigquery client object
    if request_json and 'PROJECT' in request_json:
        name = request_json['PROJECT']
        gcs_file_system  = gcsfs.GCSFileSystem(project=request_json['PROJECT'])  # Define the file system of your Google Cloud project
@@ -37,4 +36,4 @@ def bucket_geojson_to_bq(request):
        name = request_args['PROJECT']
    else:
        name = 'World'
-   return f"The file gs://{request_json['BUCKET']}/{request_json['PATH_TO_FILE']} has been pushed to Bigquery correctly as {request_json['PROJECT']}.{request_json['DATASET']}.{request_json['TABLE']}"
+   return f"The geojson file gs://{request_json['BUCKET']}/{request_json['PATH_TO_FILE']} has been pushed to Bigquery correctly as {request_json['PROJECT']}.{request_json['DATASET']}.{request_json['TABLE']}"

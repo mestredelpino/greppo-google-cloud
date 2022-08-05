@@ -74,6 +74,10 @@ resource "google_cloudfunctions_function" {
   https_trigger_security_level = "SECURE_ALWAYS"
   timeout                      = 60      
   entry_point                  = "bucket_geojson_to_bq"
+  source_repository {
+    url = 
+  }
+
 }
 
 
