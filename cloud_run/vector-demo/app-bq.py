@@ -5,12 +5,9 @@ import os
 gcp_project      = os.environ["PROJECT"]
 dataset          = os.environ["DATASET"]
 
-print(dataset)
-print(gcp_project)
-
 bigquery_client = bq.Client()
 
-#
+
 # Following function works for lines and points
 def get_geodataframe(table,columns):
     sql_query = f"""
@@ -33,21 +30,21 @@ roads_df = get_geodataframe(f"{gcp_project}.{dataset}.roads","COUNTRY,name")
 regions_df = get_geodataframe(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code")
 
 
-city_choice = []
+# city_choice = []
 
-# Choose city
-for i in cities_df["NAME"]:
-    city_choice.append(i)
+# # Choose city
+# for i in cities_df["NAME"]:
+#     city_choice.append(i)
 
-chosen_city = app.select(name="Choose city", options=[city_choice], default=city_choice[0])
+# chosen_city = app.select(name="Choose city", options=[city_choice], default=city_choice[0])
 
-# Choose region
-region_choice = []
+# # Choose region
+# region_choice = []
 
-for i in regions_df["reg_name"]:
-    region_choice.append(i)
+# for i in regions_df["reg_name"]:
+#     region_choice.append(i)
 
-chosen_region = app.select(name="Choose region", options=[region_choice], default=region_choice[0])
+# chosen_region = app.select(name="Choose region", options=[region_choice], default=region_choice[0])
 
 
 # region_subset = choose_feature(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code",chosen_region)
