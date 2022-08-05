@@ -61,3 +61,19 @@ resource "google_artifact_registry_repository" "my-repo" {
 }
 
 
+# ----------------------------------- FUNCTIONS ----------------------------------- #
+
+
+
+resource "google_cloudfunctions_function" {
+  name                         = "bucket_geojson_to_bq"
+  description                  = "This function converts a geojson file contained in a Cloud Storage Bucket into a Bigquery table"
+  runtime                      = "python39"
+  available_memory_mb          = 512
+  trigger_http                 = true   
+  https_trigger_security_level = "SECURE_ALWAYS"
+  timeout                      = 60      
+  entry_point                  = "bucket_geojson_to_bq"
+}
+
+

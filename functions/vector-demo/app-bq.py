@@ -20,7 +20,6 @@ def get_geodataframe(table,columns):
     geodataframe = bigquery_client.query(sql_query).to_geodataframe()
     return geodataframe
 
-
 cities_df = get_geodataframe(f"{gcp_project}.{dataset}.cities","COUNTRY,NAME")
 roads_df = get_geodataframe(f"{gcp_project}.{dataset}.roads","COUNTRY,name")
 regions_df = get_geodataframe(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code")
