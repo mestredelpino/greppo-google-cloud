@@ -87,4 +87,4 @@ city_choice = []
 for i in cities_df["NAME"]:
     city_choice.append(i)
 
-select1 = app.select(name="First selector", options=city_choice, default=city_choice[0])
+select1 = app.select(name="First selector", options=[city_choice], default=city_choice[0])
