@@ -84,12 +84,12 @@ city_choice = []
 # Choose region
 
 
-region_choice = []
+# region_choice = []
 
-for i in regions_df["reg_name"]:
-    region_choice.append(i)
+# for i in regions_df["reg_name"]:
+#     region_choice.append(i)
 
-chosen_region = app.select(name="Choose region", options=region_choice, default=region_choice[0])
+# chosen_region = app.select(name="Choose region", options=region_choice, default=region_choice[0])
 
 # regions_display = choose_feature(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code",'{chosen_region}')
 
@@ -105,19 +105,19 @@ chosen_region = app.select(name="Choose region", options=region_choice, default=
 #     style={"fillColor": "#4daf4a"},
 # )
 
-text_1 = """
-## About the web-app
+# text_1 = """
+# ## About the web-app
 
-The dashboard shows the boundaries of the regions of Italy as polygons, the 
-major arterial higways as lines and the major cities of each region as points.
-"""
+# The dashboard shows the boundaries of the regions of Italy as polygons, the 
+# major arterial higways as lines and the major cities of each region as points.
+# """
 
-app.display(name='text-1', value=text_1)
+# app.display(name='text-1', value=text_1)
 
-app.display(name='text-2',
-            value='The following displays the count of polygons, lines and points as a barchart.')
+# app.display(name='text-2',
+#             value='The following displays the count of polygons, lines and points as a barchart.')
 
-app.bar_chart(name='Geometry count', description='A bar-cart showing the count of each geometry-type in the datasets.',
-              x=['polygons', 'lines', 'points'], y=[len(regions_df), len(roads_df), len(cities_df)], color='#984ea3')
+# app.bar_chart(name='Geometry count', description='A bar-cart showing the count of each geometry-type in the datasets.',
+#               x=['polygons', 'lines', 'points'], y=[len(regions_df), len(roads_df), len(cities_df)], color='#984ea3')
 
 
