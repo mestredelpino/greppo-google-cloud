@@ -40,7 +40,7 @@ chosen_city = app.select(name="Choose city", options=[city_choice], default=city
 # Choose region
 region_choice = []
 
-for i in regions_df["NAME"]:
+for i in regions_df["reg_name"]:
     region_choice.append(i)
 
 chosen_region = app.select(name="Choose region", options=[region_choice], default=region_choice[0])
