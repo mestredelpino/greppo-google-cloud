@@ -104,9 +104,6 @@ cities_in_region = point_in_polygon("ST_GeogFrom(points.geometry), points.NAME, 
 
 
 
-app.display(name='You chose:', value=regions_display["reg_name"])
-
-
 app.vector_layer(
     data=regions_display,
     name="Regions of Italy",
@@ -118,7 +115,7 @@ app.vector_layer(
 app.display(name='text-2',
             value='The following displays the count of polygons, lines and points as a barchart.')
 
-app.bar_chart(name='Geometry count', description='A bar-cart showing the count of each geometry-type in the datasets.',
+app.bar_chart(name='City count', description='A bar-cart showing the count of each geometry-type in the datasets.',
               x=[f'Cities in the region {chosen_region}'], y=[len(cities_in_region["NAME"])], color='#984ea3')
 
 
