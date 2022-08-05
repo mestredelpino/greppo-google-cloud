@@ -124,6 +124,5 @@ app.display(name='text-2',
 app.bar_chart(name='Geometry count', description='A bar-cart showing the count of each geometry-type in the datasets.',
               x=['polygons', 'lines', 'points'], y=[len(regions_df), len(roads_df), len(cities_df)], color='#984ea3')
 
-app.display(name='text-2',
-            value=cities_in_region["Name"])
+
 
