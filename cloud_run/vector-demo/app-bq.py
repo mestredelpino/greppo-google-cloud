@@ -82,4 +82,4 @@ app.bar_chart(name='Geometry count', description='A bar-cart showing the count o
               x=['polygons', 'lines', 'points'], y=[len(regions_df), len(roads_df), len(cities_df)], color='#984ea3')
 
 
-select1 = app.select(name="First selector", options=["a", "b", "c"], default="a")
+select1 = app.select(name="First selector", options=[cities_df["NAME"]], default="a")
