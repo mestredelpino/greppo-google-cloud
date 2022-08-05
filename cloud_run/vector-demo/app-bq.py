@@ -82,3 +82,6 @@ app.bar_chart(name='Geometry count', description='A bar-cart showing the count o
               x=['polygons', 'lines', 'points'], y=[len(regions_df), len(roads_df), len(cities_df)], color='#984ea3')
 
 
+app.select(
+    name="select", options=[regions_df, roads_df, cities_df], default=[regions_df]
+)
