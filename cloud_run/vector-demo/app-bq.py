@@ -20,6 +20,13 @@ def get_geodataframe(table,columns):
     geodataframe = bigquery_client.query(sql_query).to_geodataframe()
     return geodataframe
 
+def choose_feature(table,columns,feature_name):
+    sql_query = f"""
+        SELECT ST_GeogFrom(geometry) as geometry, {columns} FROM {table} WHERE reg_name = '{feature_name}'
+    """
+    geodataframe = bigquery_client.query(sql_query).to_geodataframe()
+    return geodataframe
+
 cities_df = get_geodataframe(f"{gcp_project}.{dataset}.cities","COUNTRY,NAME")
 roads_df = get_geodataframe(f"{gcp_project}.{dataset}.roads","COUNTRY,name")
 regions_df = get_geodataframe(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code")
@@ -44,12 +51,7 @@ app.base_layer(
 )
 
 
-app.vector_layer(
-    data=regions_df,
-    name="Regions of Italy",
-    description="Polygons showing the boundaries of regions of Italy.",
-    style={"fillColor": "#4daf4a"},
-)
+
 
 app.vector_layer(
     data=roads_df,
@@ -101,10 +103,14 @@ for i in regions_df["reg_name"]:
 chosen_region = app.select(name="Choose region", options=[region_choice], default=region_choice[0])
 
 
-# def choose_feature(table,columns,feature_name):
-#     sql_query = f"""
-#         SELECT ST_GeogFrom(geometry) as geometry, {columns} WHERE reg_name={feature_name}
-#         FROM {table}
-#     """
-#     geodataframe = bigquery_client.query(sql_query).to_geodataframe()
-#     return geodataframe
+
+regions_display = choose_feature(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code",chosen_region)
+
+
+
+app.vector_layer(
+    data=regions_display,
+    name="Regions of Italy",
+    description="Polygons showing the boundaries of regions of Italy.",
+    style={"fillColor": "#4daf4a"},
+)
