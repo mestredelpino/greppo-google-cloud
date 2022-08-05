@@ -40,7 +40,6 @@ roads_df = get_geodataframe(f"{gcp_project}.{dataset}.roads","COUNTRY,name")
 regions_df = get_geodataframe(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code")
 
 
-
 app.display(name='title', value='Vector demo')
 app.display(name='description',
             value='A Greppo demo app for vector data using GeoJSON data.')
@@ -73,7 +72,6 @@ app.vector_layer(
     visible=True,
 )
 
-city_choice = []
 
 # Choose city
 # for i in cities_df["NAME"]:
@@ -105,19 +103,19 @@ city_choice = []
 #     style={"fillColor": "#4daf4a"},
 # )
 
-text_1 = """
-## About the web-app
+# text_1 = """
+# ## About the web-app
 
-The dashboard shows the boundaries of the regions of Italy as polygons, the 
-major arterial higways as lines and the major cities of each region as points.
-"""
+# The dashboard shows the boundaries of the regions of Italy as polygons, the 
+# major arterial higways as lines and the major cities of each region as points.
+# """
 
-app.display(name='text-1', value=text_1)
+# app.display(name='text-1', value=text_1)
 
-app.display(name='text-2',
-            value='The following displays the count of polygons, lines and points as a barchart.')
+# app.display(name='text-2',
+#             value='The following displays the count of polygons, lines and points as a barchart.')
 
-app.bar_chart(name='Geometry count', description='A bar-cart showing the count of each geometry-type in the datasets.',
-              x=['polygons', 'lines', 'points'], y=[len(regions_df), len(roads_df), len(cities_df)], color='#984ea3')
+# app.bar_chart(name='Geometry count', description='A bar-cart showing the count of each geometry-type in the datasets.',
+#               x=['polygons', 'lines', 'points'], y=[len(regions_df), len(roads_df), len(cities_df)], color='#984ea3')
 
 
