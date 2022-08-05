@@ -5,14 +5,9 @@ import os
 gcp_project      = os.environ["PROJECT"]
 dataset          = os.environ["DATASET"]
 
-print(dataset)
-print(gcp_project)
-
 bigquery_client = bq.Client()
 
 
-
-#
 # Following function works for lines and points
 def get_geodataframe(table,columns):
     sql_query = f"""
@@ -29,7 +24,7 @@ def choose_feature(table,columns,feature_name):
     geodataframe = bigquery_client.query(sql_query).to_geodataframe()
     return geodataframe
 
-def point_in_polygon(columns, points_table_id,polygons_table_id,polygons_key,polygons_value):
+def point_in_polygon(columns,points_table_id,polygons_table_id,polygons_key,polygons_value):
     sql_query = f"""
         SELECT {columns} FROM {points_table_id} as points 
         JOIN {polygons_table_id} as polygons 
@@ -45,10 +40,18 @@ roads_df = get_geodataframe(f"{gcp_project}.{dataset}.roads","COUNTRY,name")
 regions_df = get_geodataframe(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code")
 
 
+text_1 = """
+## About the web-app
+
+The dashboard shows the boundaries of the regions of Italy as polygons, the 
+major arterial higways as lines and the major cities of each region as points.
+"""
 
 app.display(name='title', value='Vector demo')
 app.display(name='description',
             value='A Greppo demo app for vector data using GeoJSON data.')
+
+app.display(name='text-1', value=text_1)
 
 app.base_layer(
     name="Open Street Map",
@@ -78,7 +81,6 @@ app.vector_layer(
     visible=True,
 )
 
-city_choice = []
 
 # Choose city
 # for i in cities_df["NAME"]:
@@ -87,6 +89,8 @@ city_choice = []
 # chosen_city = app.select(name="Choose city", options=city_choice, default=city_choice[0])
 
 # Choose region
+
+
 region_choice = []
 
 for i in regions_df["reg_name"]:
@@ -94,11 +98,10 @@ for i in regions_df["reg_name"]:
 
 chosen_region = app.select(name="Choose region", options=region_choice, default=region_choice[0])
 
-regions_display = choose_feature(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code",'{chosen_region}')
+regions_display = choose_feature(f"{gcp_project}.{dataset}.regions","reg_name,reg_istat_code",chosen_region)
 
-cities_in_region = point_in_polygon("*", "carlos-lab.greppo_vector_demo-cities","carlos-lab.greppo_vector_demo-regions","reg_name",'{chosen_region}')
+cities_in_region = point_in_polygon("ST_GeogFrom(points.geometry), points.NAME, polygons.reg_name", f"{gcp_project}.{dataset}.cities",f"{gcp_project}.{dataset}.regions","reg_name",chosen_region)
 
-app.display(name='You chose:', value=regions_display["reg_name"])
 
 
 app.vector_layer(
@@ -108,19 +111,11 @@ app.vector_layer(
     style={"fillColor": "#4daf4a"},
 )
 
-text_1 = """
-## About the web-app
-
-The dashboard shows the boundaries of the regions of Italy as polygons, the 
-major arterial higways as lines and the major cities of each region as points.
-"""
-
-app.display(name='text-1', value=text_1)
 
 app.display(name='text-2',
             value='The following displays the count of polygons, lines and points as a barchart.')
 
-app.bar_chart(name='Geometry count', description='A bar-cart showing the count of each geometry-type in the datasets.',
-              x=['polygons', 'lines', 'points'], y=[len(regions_df), len(roads_df), len(cities_df)], color='#984ea3')
+app.bar_chart(name='City count', description='A bar-cart showing the count of each geometry-type in the datasets.',
+              x=[f'Cities in the region {chosen_region}'], y=[len(cities_in_region["NAME"])], color='#984ea3')
 
 
