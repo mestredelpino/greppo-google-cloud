@@ -119,6 +119,6 @@ app.display(name='text-2',
             value='The following displays the count of polygons, lines and points as a barchart.')
 
 app.bar_chart(name='Geometry count', description='A bar-cart showing the count of each geometry-type in the datasets.',
-              x=[f'Cities in the region {chosen_region}'], y=[len(cities_in_region)], color='#984ea3')
+              x=[f'Cities in the region {chosen_region}'], y=[len(cities_in_region["NAME"])], color='#984ea3')
 
 
