@@ -40,8 +40,6 @@ substitutions:
   _TRIGGER_ID: 3a0d93c0-634c-4dc2-a73c-2dfa98c7aa65
   _GCR_HOSTNAME: gcr.io
   _PLATFORM: managed
-  _PROJECT: carlos-lab
-  _DATASET: greppo_vector_demo
 tags:
   - gcp-cloud-build-deploy-cloud-run
   - gcp-cloud-build-deploy-cloud-run-managed
